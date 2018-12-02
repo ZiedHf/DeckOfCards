@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Grid, Card, Icon } from "semantic-ui-react";
+import { Container, Grid, Card, Icon, Dimmer, Loader } from "semantic-ui-react";
 import DCMenu from "./components/DCMenu";
 import DCCard from "./components/DCCard";
 import DCCards from "./components/DCCards";
@@ -7,73 +7,67 @@ import DCMsg from "./components/DCMsg";
 import "./App.css";
 import "semantic-ui-css/semantic.min.css";
 import { first } from "lodash";
+import texts from "./texts/texts";
+import { loadingEffectIn, getInitialCards, shuffle } from "./utils/functions";
+
 class App extends Component {
-  numberOfCards = 52;
-  loadingEffectIn = 2000;
   constructor(props) {
     super(props);
-    let cards = this.getInitialCards();
+    let cards = getInitialCards();
     this.state = {
       loading: false,
       cardsTaken: [],
-      cards: this.shuffle(cards)
+      cards: shuffle(cards),
+      warnings: {}
     };
   }
 
-  /** Get the initial card numbers */
-  getInitialCards = () => {
-    let cards = [];
-    for (let i = 0; i < this.numberOfCards; i++) {
-      cards.push(i + 1);
-    }
-    return cards;
-  };
-
-  /** Shuffle cards and get random order */
-  shuffle = cards => {
-    cards = cards ? cards : this.state.cards;
-    // We will shuffle the cases 51 times here
-    for (let i = 0; i < this.numberOfCards - 1; i++) {
-      // Get a random number between 0 and (i+1)
-      const j = Math.floor(Math.random() * (i + 1));
-      // Switch using es6 (no need to temporary variable)
-      [cards[i], cards[j]] = [cards[j], cards[i]];
-    }
-    return cards;
-  };
-
-  setCards = () => {
+  loadCards = (newState = {}, resetCards = false) => {
     this.setState({ loading: true });
-    setTimeout(() => this.resetCards(), this.loadingEffectIn);
+    setTimeout(() => this.resetCards(newState, resetCards), loadingEffectIn);
   };
 
-  resetCards = () => {
-    this.setState({ loading: false, cards: this.shuffle() });
+  resetCards = (newState = {}, resetCards) => {
+    const cards = !resetCards ? this.state.cards : null;
+    // console.log("this.state.cards", this.state.cards);
+    this.setState({
+      ...newState,
+      ...{ loading: false, cards: shuffle(cards) }
+    });
   };
 
   dealCard = () => {
     let { cards, cardsTaken, warnings } = this.state;
-    // If there is no cards, the function will quit
+    // If the shuffle warning is already set, nothing to do
+    if (warnings.shuffleWarning) {
+      return false;
+    }
+    // If there is no cards, the function will set the shuffleWarning and quit
     if (!cards || !cards.length) {
       warnings.shuffleWarning = true;
       this.setState({ warnings });
       return false;
     }
+    // The button will add a card to the cardsTaken and drop it from the deck
     let card = first(cards);
     cardsTaken.push(card);
     cards.shift();
-    console.log("cards", cards);
-    console.log("cardsTaken", cardsTaken);
     this.setState({ cards, cardsTaken });
   };
 
   onApprove = () => {
-    console.log("onApprove");
+    let { warnings } = this.state;
+    warnings.shuffleWarning = false;
+    let newState = { cardsTaken: [], warnings };
+    this.loadCards(newState, true);
   };
 
   onCancel = () => {
-    console.log("onCancel");
+    let { warnings } = this.state;
+    warnings.shuffleWarning = false;
+    this.setState({ warnings });
   };
+
   render() {
     let { cards, cardsTaken, loading, warnings } = this.state;
     return (
@@ -81,13 +75,13 @@ class App extends Component {
         <Grid>
           <Grid.Row>
             <Grid.Column width={5}>
-              <DCMenu shuffle={this.setCards} dealCard={this.dealCard} />
+              <DCMenu shuffle={this.loadCards} dealCard={this.dealCard} />
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row>
+          <Grid.Row width={16}>
             {warnings && warnings.shuffleWarning ? (
               <DCMsg
-                msg="There is no cards ! Do you want to shuffle the cards again ?"
+                msg={texts.warningNoMoreCards}
                 onApprove={this.onApprove}
                 onCancel={this.onCancel}
               />
@@ -100,7 +94,7 @@ class App extends Component {
               ) : (
                 <Card color="green" className="sem-card">
                   <Card.Content>
-                    <Card.Header>Deck Of Cards</Card.Header>
+                    <Card.Header>{texts.headerdeck}</Card.Header>
                     <Card.Description>
                       {cards && cards.length ? (
                         <DCCard
@@ -114,14 +108,20 @@ class App extends Component {
                   </Card.Content>
                   <Card.Content extra>
                     <Icon name="chess" />
-                    {(cards && cards.length) || 0} Cards
+                    {(cards && cards.length) || 0} {texts.cards}
                   </Card.Content>
                 </Card>
               )}
             </Grid.Column>
             <Grid.Column width={12}>
               <Grid.Row>
-                <DCCards cardsTaken={cardsTaken} />
+                {loading ? (
+                  <Dimmer active inverted>
+                    <Loader />
+                  </Dimmer>
+                ) : (
+                  <DCCards cardsTaken={cardsTaken} />
+                )}
               </Grid.Row>
             </Grid.Column>
           </Grid.Row>

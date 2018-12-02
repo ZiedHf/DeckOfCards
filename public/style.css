@@ -1,284 +1,287 @@
 .shuffle {
-    background: url(./img/shuffle.gif);
-    height: 100px;
+  background: url(./img/shuffle.gif);
+  height: 100px;
 }
 
 .card {
-    height: 136px;
+  height: 136px;
 }
 
 .sem-card {
-    height: auto;
+  height: auto;
 }
 
 .cardWrapper {
-    width: 93px;
-    height: 139px;
-    margin: auto;
+  width: 93px;
+  height: 139px;
+  margin: auto;
 }
 .cardBackBlack {
-    width: 91px;
-    background: url(./img/cardBackBlack.png) 0 0;
+  width: 91px;
+  background: url(./img/cardBackBlack.png) 0 0;
 }
 .cardBackRed {
-    width: 91px;
-    background: url(./img/cardBackRed.jpg) 0 0;
+  width: 91px;
+  background: url(./img/cardBackRed.jpg) 0 0;
+}
+.fullWidth {
+  width: 100% !important;
 }
 /********************************* First Type *********************************/
 .card1 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -7px -37px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -7px -37px;
 }
 .card2 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -105px -37px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -105px -37px;
 }
 
 .card3 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -203px -37px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -203px -37px;
 }
 
 .card4 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -301px -37px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -301px -37px;
 }
 
 .card5 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -399px -37px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -399px -37px;
 }
 
 .card6 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -497px -37px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -497px -37px;
 }
 
 .card7 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -595px -37px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -595px -37px;
 }
 
 .card8 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -692px -37px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -692px -37px;
 }
 
 .card9 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -790px -37px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -790px -37px;
 }
 
 .card10 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -888px -37px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -888px -37px;
 }
 
 .card11 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -986px -37px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -986px -37px;
 }
 
 .card12 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -1084px -37px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -1084px -37px;
 }
 
 .card13 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -1181px -37px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -1181px -37px;
 }
 /********************************* Second Type *********************************/
 .card14 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -7px -180px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -7px -180px;
 }
 .card15 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -105px -180px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -105px -180px;
 }
 
 .card16 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -203px -180px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -203px -180px;
 }
 
 .card17 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -301px -180px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -301px -180px;
 }
 
 .card18 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -399px -180px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -399px -180px;
 }
 
 .card19 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -497px -180px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -497px -180px;
 }
 
 .card20 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -595px -180px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -595px -180px;
 }
 
 .card21 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -692px -180px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -692px -180px;
 }
 
 .card22 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -790px -180px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -790px -180px;
 }
 
 .card23 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -888px -180px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -888px -180px;
 }
 
 .card24 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -986px -180px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -986px -180px;
 }
 
 .card25 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -1084px -180px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -1084px -180px;
 }
 
 .card26 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -1181px -180px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -1181px -180px;
 }
 
 /********************************* Third Type *********************************/
 .card27 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -7px -323px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -7px -323px;
 }
 .card28 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -105px -323px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -105px -323px;
 }
 
 .card29 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -203px -323px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -203px -323px;
 }
 
 .card30 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -301px -323px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -301px -323px;
 }
 
 .card31 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -399px -323px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -399px -323px;
 }
 
 .card32 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -497px -323px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -497px -323px;
 }
 
 .card33 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -595px -323px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -595px -323px;
 }
 
 .card34 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -692px -323px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -692px -323px;
 }
 
 .card35 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -790px -323px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -790px -323px;
 }
 
 .card36 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -888px -323px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -888px -323px;
 }
 
 .card37 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -986px -323px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -986px -323px;
 }
 
 .card38 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -1084px -323px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -1084px -323px;
 }
 
 .card39 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -1181px -323px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -1181px -323px;
 }
 
 /********************************* Fourth Type *********************************/
 .card40 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -7px -465px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -7px -465px;
 }
 .card41 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -105px -465px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -105px -465px;
 }
 
 .card42 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -203px -465px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -203px -465px;
 }
 
 .card43 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -301px -465px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -301px -465px;
 }
 
 .card44 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -399px -465px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -399px -465px;
 }
 
 .card45 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -497px -465px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -497px -465px;
 }
 
 .card46 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -595px -465px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -595px -465px;
 }
 
 .card47 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -692px -465px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -692px -465px;
 }
 
 .card48 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -790px -465px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -790px -465px;
 }
 
 .card49 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -888px -465px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -888px -465px;
 }
 
 .card50 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -986px -465px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -986px -465px;
 }
 
 .card51 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -1084px -465px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -1084px -465px;
 }
 
 .card52 {
-    width: 91px;
-    background: url(./img/atlasnye-884206_1280.png) -1181px -465px;
+  width: 91px;
+  background: url(./img/atlasnye-884206_1280.png) -1181px -465px;
 }
