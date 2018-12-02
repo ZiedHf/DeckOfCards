@@ -1,4 +1,4 @@
-export const numberOfCards = 5;
+export const numberOfCards = 52;
 export const loadingEffectIn = 2000;
 export const initialWarnings = {
   resetOneCard: false,
@@ -34,8 +34,8 @@ export function getCardClass(card) {
 }
 
 /** Shuffle cards and get random order */
-export function shuffle(cards) {
-  cards = cards && cards.length ? cards : getInitialCards();
+export function shuffle(cards, customNumberCards) {
+  cards = cards && cards.length ? cards : getInitialCards(customNumberCards);
   // We will shuffle the cases 51 times here
   for (let i = 0; i < cards.length - 1; i++) {
     // Get a random number between 0 and (i+1)
@@ -47,9 +47,10 @@ export function shuffle(cards) {
 }
 
 /** Get the initial card numbers */
-export function getInitialCards() {
+export function getInitialCards(customNumberCards) {
   let cards = [];
-  for (let i = 0; i < numberOfCards; i++) {
+  let numbersCards = customNumberCards || numberOfCards;
+  for (let i = 0; i < numbersCards; i++) {
     cards.push(i + 1);
   }
   return cards;

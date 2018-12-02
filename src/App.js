@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import { Container, Grid, Card, Icon, Dimmer, Loader } from "semantic-ui-react";
+import {
+  Container,
+  Grid,
+  Card,
+  Icon,
+  Dimmer,
+  Loader,
+  Header,
+  Segment
+} from "semantic-ui-react";
 import DCMenu from "./components/DCMenu";
 import DCCard from "./components/DCCard";
 import DCCards from "./components/DCCards";
@@ -12,7 +21,8 @@ import {
   loadingEffectIn,
   getInitialCards,
   shuffle,
-  initialWarnings
+  initialWarnings,
+  numberOfCards
 } from "./utils/functions";
 
 class App extends Component {
@@ -24,7 +34,8 @@ class App extends Component {
       loadTakenCards: false,
       cardsTaken: [],
       cards: shuffle(cards),
-      warnings: cloneDeep(initialWarnings)
+      warnings: cloneDeep(initialWarnings),
+      numberOfCards
     };
   }
 
@@ -50,9 +61,14 @@ class App extends Component {
   // If we don't have any we will shuffle all the cards again
   resetCards = (newState = {}, resetCards) => {
     const cards = !resetCards ? this.state.cards : null;
+    const { numberOfCards } = this.state;
     this.setState({
       ...newState,
-      ...{ loadDeck: false, loadTakenCards: false, cards: shuffle(cards) }
+      ...{
+        loadDeck: false,
+        loadTakenCards: false,
+        cards: shuffle(cards, numberOfCards)
+      }
     });
   };
 
@@ -103,6 +119,10 @@ class App extends Component {
     }
   };
 
+  onChangeCardNumber = value => {
+    console.log("onChangeCardNumber", value);
+    this.setState({ numberOfCards: +value }, () => this.onResetAll());
+  };
   render() {
     const {
       cards,
@@ -116,14 +136,20 @@ class App extends Component {
       <Container>
         <Grid>
           <Grid.Row>
-            <Grid.Column width={5}>
+            <Grid.Column width={16}>
               <DCMenu
                 disabled={!!loadTakenCards || !!loadDeck}
                 onShuffle={this.loadCards}
                 onDealCard={this.dealCard}
                 onResetCard={this.onResetAll}
+                onChangeCardNumber={this.onChangeCardNumber}
               />
             </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Header as="h2" icon textAlign="center">
+              <Header.Content>Deck Of Cards</Header.Content>
+            </Header>
           </Grid.Row>
           <Grid.Row width={16}>
             {!loading && warnings && warnings.shuffleWarning ? (
@@ -148,41 +174,51 @@ class App extends Component {
             ) : null}
           </Grid.Row>
           <Grid.Row>
-            <Grid.Column width={2}>
-              {loadDeck ? (
-                <div className="shuffle" />
-              ) : (
-                <Card color="green" className="sem-card">
-                  <Card.Content>
-                    <Card.Header>{texts.headerdeck}</Card.Header>
-                    <Card.Description>
-                      {cards && cards.length ? (
-                        <DCCard
-                          type="backOnly"
-                          cardNumber={`card${first(cards)}`}
-                          onClick={this.dealCard}
-                        />
-                      ) : (
-                        "No Cards"
-                      )}
-                    </Card.Description>
-                  </Card.Content>
-                  <Card.Content extra>
-                    <Icon name="chess" />
-                    {(cards && cards.length) || 0} {texts.cards}
-                  </Card.Content>
-                </Card>
-              )}
-            </Grid.Column>
-            <Grid.Column width={12}>
-              <Grid.Row>
-                {loadTakenCards ? (
-                  <Dimmer active inverted>
-                    <Loader />
-                  </Dimmer>
+            <Grid.Column width={3}>
+              <Segment>
+                {loadDeck ? (
+                  <div className="shuffle" />
                 ) : (
-                  <DCCards cardsTaken={cardsTaken} />
+                  <Card color="green" className="sem-card">
+                    <Card.Content>
+                      {cards && cards.length ? (
+                        <Card.Header>{texts.headerdeck}</Card.Header>
+                      ) : null}
+                      <Card.Description>
+                        {cards && cards.length ? (
+                          <DCCard
+                            type="backOnly"
+                            cardNumber={`card${first(cards)}`}
+                            onClick={this.dealCard}
+                          />
+                        ) : (
+                          texts.noCards
+                        )}
+                      </Card.Description>
+                    </Card.Content>
+                    <Card.Content extra>
+                      <Icon name="chess" />
+                      {(cards && cards.length) || 0} {texts.cards}
+                    </Card.Content>
+                  </Card>
                 )}
+              </Segment>
+            </Grid.Column>
+            <Grid.Column width={13}>
+              <Grid.Row>
+                <Segment>
+                  <Header as="h2" icon textAlign="center">
+                    <Icon name="paper plane" />
+                    {texts.boardHeader}
+                  </Header>
+                  {loadTakenCards ? (
+                    <Dimmer active inverted>
+                      <Loader />
+                    </Dimmer>
+                  ) : (
+                    <DCCards cardsTaken={cardsTaken} />
+                  )}
+                </Segment>
               </Grid.Row>
             </Grid.Column>
           </Grid.Row>

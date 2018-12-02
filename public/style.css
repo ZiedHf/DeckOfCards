@@ -1,5 +1,5 @@
 .shuffle {
-  background: url(./img/shuffle.gif);
+  background: url(./img/shuffle.gif) no-repeat;
   height: 100px;
 }
 

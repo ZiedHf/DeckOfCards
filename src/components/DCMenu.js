@@ -1,8 +1,13 @@
 import React, { Component } from "react";
-import { Menu } from "semantic-ui-react";
+import { Menu, Dropdown } from "semantic-ui-react";
 import { isFunction } from "lodash";
+import { numberOfCards } from "../utils/functions";
 class DCMenu extends Component {
-  state = { activeItem: "" };
+  state = {
+    activeItem: "",
+    numberOfCards: numberOfCards,
+    currentValue: numberOfCards
+  };
 
   handleItemClick = (e, { name }) => {
     const { onShuffle, onDealCard, onResetCard } = this.props;
@@ -16,9 +21,24 @@ class DCMenu extends Component {
     }
   };
 
+  onClick(e, item) {
+    const { onChangeCardNumber } = this.props;
+    this.setState({ currentValue: item.value });
+    isFunction(onChangeCardNumber) && onChangeCardNumber(item.value);
+  }
   render() {
-    const { activeItem } = this.state;
+    const { activeItem, numberOfCards, currentValue } = this.state;
     const { disabled } = this.props;
+    let options = [];
+    for (let i = 2; i < numberOfCards + 1; i++) {
+      options.push({
+        text: `${i} Cards`,
+        value: i,
+        key: `${i}`,
+        onClick: (e, item) => this.onClick(e, item)
+      });
+    }
+
     return (
       <Menu secondary>
         <Menu.Item
@@ -39,6 +59,18 @@ class DCMenu extends Component {
           onClick={this.handleItemClick}
           disabled={disabled}
         />
+        <Menu.Menu position="right">
+          <Menu.Item>
+            <Dropdown
+              placeholder="Number of cards"
+              // icon="chess knight"
+              scrolling
+              options={options}
+              onChange={(e, t) => console.log(e, t)}
+              value={currentValue}
+            />
+          </Menu.Item>
+        </Menu.Menu>
       </Menu>
     );
   }
