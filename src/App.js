@@ -7,7 +7,8 @@ import {
   Dimmer,
   Loader,
   Header,
-  Segment
+  Segment,
+  Image
 } from "semantic-ui-react";
 import DCMenu from "./components/DCMenu";
 import DCCard from "./components/DCCard";
@@ -208,7 +209,7 @@ class App extends Component {
               <Grid.Row>
                 <Segment>
                   <Header as="h2" icon textAlign="center">
-                    <Icon name="paper plane" />
+                    <Image src="./img/cardsicon.jpeg" />
                     {texts.boardHeader}
                   </Header>
                   {loadTakenCards ? (
