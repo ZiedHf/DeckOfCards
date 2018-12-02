@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import { Menu } from 'semantic-ui-react'
-
+import { isFunction } from 'lodash';
 class DCMenu extends Component {
-  state = { activeItem: 'home' }
+  state = { activeItem: '' }
 
   handleItemClick = (e, { name }) => {
-    const { shuffle } = this.props;
+    const { shuffle, dealCard } = this.props;
     this.setState({ activeItem: name });
-      if (name === 'shuffle') {
+      if (name === 'shuffle' && isFunction(shuffle)) {
         shuffle();
       }
-      if (name === 'Deal Card') {
-        // dealCards();
+      if (name === 'Deal Card' && isFunction(dealCard)) {
+        dealCard();
       }
   }
 

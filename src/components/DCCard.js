@@ -1,20 +1,32 @@
 import React, { Component } from 'react'
 import ReactCardFlip from 'react-card-flip';
-
+import { getCardClass } from '../utils/functions';
 class DCCard extends Component {
-  constructor() {
-    super();
+  /**
+   * TO DO : add Prototypes and description
+   * @param { isFlipped } props   || bool : which front the component will display
+   * @param { cardNumber } props  || string : which front the component will display
+   * @param { type } props        || string : one of [flippedCard, backOnly, frontOnly]; backOnly by default
+   */
+  constructor(props) {
+    super(props);
     this.state = {
-      isFlipped: false
+      isFlipped: props.isFlipped || true
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isFlipped !== this.props.isFlipped) {
+      this.setState({ isFlipped: nextProps.isFlipped });
+    }
+
+  }
   handleClick = (e) => {
     e.preventDefault();
     this.setState(prevState => ({ isFlipped: !prevState.isFlipped }));
   };
 
-  flippedCard = () => {
+  flippedCard = cardBack => {
     const { cardNumber } = this.props;
     const { isFlipped } = this.state;
     return (
@@ -25,7 +37,7 @@ class DCCard extends Component {
           </div>
 
           <div key="back">
-            <div className='card cardBack' onClick={this.handleClick}/>
+            <div className={`card ${cardBack}`} onClick={this.handleClick}/>
           </div>
         </ReactCardFlip>
       </div>
@@ -34,14 +46,17 @@ class DCCard extends Component {
 
   render() {
     const { cardNumber, type } = this.props;
-    // type supports one of : flippedCard, backOnly or frontOnly
+    
+    // Test if this card red or black
+    const cardBack = getCardClass(cardNumber);
+    // let cardBackColor = cardNumber.splice(0, 4);
     switch (type) {
       case 'flippedCard':
-        return this.flippedCard();
+        return this.flippedCard(cardBack);
       case 'frontOnly':
         return (<div className={`card ${cardNumber}`} />);
       default:
-        return (<div className='card cardBack' />);
+        return (<div className={`card ${cardBack}`} />);
     }
   }
 }

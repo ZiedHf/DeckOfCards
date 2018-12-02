@@ -1,14 +1,28 @@
+.shuffle {
+    background: url(./img/shuffle.gif);
+    height: 100px;
+}
+
 .card {
     height: 136px;
+}
+
+.sem-card {
+    height: auto;
 }
 
 .cardWrapper {
     width: 93px;
     height: 139px;
+    margin: auto;
 }
-.cardBack {
+.cardBackBlack {
     width: 91px;
-    background: url(./img/cardBack.png) 0 0;
+    background: url(./img/cardBackBlack.png) 0 0;
+}
+.cardBackRed {
+    width: 91px;
+    background: url(./img/cardBackRed.jpg) 0 0;
 }
 /********************************* First Type *********************************/
 .card1 {
