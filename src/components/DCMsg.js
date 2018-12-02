@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Message, Button } from "semantic-ui-react";
 import { isFunction } from "lodash";
 class DCMsg extends Component {
+  initialWarnings = { name: "khra" };
   render() {
     const { onApprove, onCancel, msg } = this.props;
     return (

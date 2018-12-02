@@ -1,5 +1,10 @@
 export const numberOfCards = 5;
 export const loadingEffectIn = 2000;
+export const initialWarnings = {
+  resetOneCard: false,
+  shuffleWarning: false,
+  shuffleZeroCard: false
+};
 export function isRedCard(card) {
   let cardNumber = getNumberFromClass(card);
   if (Number.isInteger(cardNumber)) {

@@ -6,36 +6,57 @@ import DCCards from "./components/DCCards";
 import DCMsg from "./components/DCMsg";
 import "./App.css";
 import "semantic-ui-css/semantic.min.css";
-import { first } from "lodash";
+import { first, isEqual, cloneDeep } from "lodash";
 import texts from "./texts/texts";
-import { loadingEffectIn, getInitialCards, shuffle } from "./utils/functions";
+import {
+  loadingEffectIn,
+  getInitialCards,
+  shuffle,
+  initialWarnings
+} from "./utils/functions";
 
 class App extends Component {
   constructor(props) {
     super(props);
     let cards = getInitialCards();
     this.state = {
-      loading: false,
+      loadDeck: false,
+      loadTakenCards: false,
       cardsTaken: [],
       cards: shuffle(cards),
-      warnings: {}
+      warnings: cloneDeep(initialWarnings)
     };
   }
 
+  // Set the loading effect
   loadCards = (newState = {}, resetCards = false) => {
-    this.setState({ loading: true });
+    let { cards, warnings } = this.state;
+    // Don't let the user shuffle 1 card (He needs to reset all of it)
+    if (!resetCards && cards.length < 2) {
+      if (cards.length === 1) warnings.resetOneCard = true;
+      if (cards.length === 0) warnings.shuffleZeroCard = true;
+      this.setState({ warnings });
+      return false;
+    }
+    let loading = resetCards
+      ? { loadDeck: true, loadTakenCards: true }
+      : { loadDeck: true };
+    this.setState(loading);
     setTimeout(() => this.resetCards(newState, resetCards), loadingEffectIn);
   };
 
+  // Reset the card
+  // If we have already cards we will shuffle only these cards without the taken ones
+  // If we don't have any we will shuffle all the cards again
   resetCards = (newState = {}, resetCards) => {
     const cards = !resetCards ? this.state.cards : null;
-    // console.log("this.state.cards", this.state.cards);
     this.setState({
       ...newState,
-      ...{ loading: false, cards: shuffle(cards) }
+      ...{ loadDeck: false, loadTakenCards: false, cards: shuffle(cards) }
     });
   };
 
+  // Take the next card
   dealCard = () => {
     let { cards, cardsTaken, warnings } = this.state;
     // If the shuffle warning is already set, nothing to do
@@ -55,41 +76,80 @@ class App extends Component {
     this.setState({ cards, cardsTaken });
   };
 
-  onApprove = () => {
+  // Click on the reset or approve buttons
+  onResetAll = () => {
     let { warnings } = this.state;
-    warnings.shuffleWarning = false;
-    let newState = { cardsTaken: [], warnings };
+    let newState = { cardsTaken: [] };
+    // If the warnings in the state are different we will set them to the initial ones
+    if (!isEqual(warnings, initialWarnings)) {
+      Object.assign(newState, { warnings: cloneDeep(initialWarnings) });
+    }
     this.loadCards(newState, true);
   };
 
-  onCancel = () => {
+  // Click on the cancel button will make the warning disapear
+  // Calling this function without argument will hide all the warnings
+  resetWarnings = warning => {
     let { warnings } = this.state;
-    warnings.shuffleWarning = false;
-    this.setState({ warnings });
+    if (!isEqual(warnings, initialWarnings)) {
+      let newWarnings;
+      if (warning) {
+        newWarnings = cloneDeep(warnings);
+        newWarnings[warning] = false;
+      } else {
+        newWarnings = cloneDeep(initialWarnings);
+      }
+      this.setState({ warnings: newWarnings });
+    }
   };
 
   render() {
-    let { cards, cardsTaken, loading, warnings } = this.state;
+    const {
+      cards,
+      cardsTaken,
+      loadDeck,
+      loadTakenCards,
+      warnings
+    } = this.state;
+    const loading = loadDeck || loadTakenCards;
     return (
       <Container>
         <Grid>
           <Grid.Row>
             <Grid.Column width={5}>
-              <DCMenu shuffle={this.loadCards} dealCard={this.dealCard} />
+              <DCMenu
+                disabled={!!loadTakenCards || !!loadDeck}
+                onShuffle={this.loadCards}
+                onDealCard={this.dealCard}
+                onResetCard={this.onResetAll}
+              />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row width={16}>
-            {warnings && warnings.shuffleWarning ? (
+            {!loading && warnings && warnings.shuffleWarning ? (
               <DCMsg
                 msg={texts.warningNoMoreCards}
-                onApprove={this.onApprove}
-                onCancel={this.onCancel}
+                onApprove={this.onResetAll}
+                onCancel={() => this.resetWarnings("shuffleWarning")}
+              />
+            ) : null}
+            {!loading && warnings && warnings.resetOneCard ? (
+              <DCMsg
+                msg={texts.warningResetOneCard}
+                onCancel={() => this.resetWarnings("resetOneCard")}
+              />
+            ) : null}
+            {!loading && warnings && warnings.shuffleZeroCard ? (
+              <DCMsg
+                msg={texts.warningShuffleZeroCard}
+                onApprove={this.onResetAll}
+                onCancel={() => this.resetWarnings("shuffleZeroCard")}
               />
             ) : null}
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={2}>
-              {loading ? (
+              {loadDeck ? (
                 <div className="shuffle" />
               ) : (
                 <Card color="green" className="sem-card">
@@ -100,6 +160,7 @@ class App extends Component {
                         <DCCard
                           type="backOnly"
                           cardNumber={`card${first(cards)}`}
+                          onClick={this.dealCard}
                         />
                       ) : (
                         "No Cards"
@@ -115,7 +176,7 @@ class App extends Component {
             </Grid.Column>
             <Grid.Column width={12}>
               <Grid.Row>
-                {loading ? (
+                {loadTakenCards ? (
                   <Dimmer active inverted>
                     <Loader />
                   </Dimmer>
